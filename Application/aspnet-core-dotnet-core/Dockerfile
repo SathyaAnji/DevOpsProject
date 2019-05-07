@@ -2,7 +2,7 @@ FROM microsoft/aspnetcore-build:1.1 AS sathya
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj" "aspnet-core-dotnet-core"/]
 RUN dotnet restore
 
 # Copy everything else and build

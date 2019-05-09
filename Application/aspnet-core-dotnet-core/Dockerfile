@@ -7,7 +7,7 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet build
+RUN dotnet build "aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj"
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

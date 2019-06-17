@@ -1,22 +1,24 @@
-pool:
-  name: Hosted VS2017
-  demands:
-  - msbuild
-  - visualstudio
-pr: 
-  branches: 
-    include: 
-    - develop
-    - master
-steps:
-- task: qetza.replacetokens.replacetokens-task.replacetokens@3
-  displayName: 'Replace tokens in **/*.config'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-
-- task: VSBuild@1
-  displayName: 'Build solution **\*.sln'
+stages: 
+- stage: Build
+  jobs: 
+  - job: Build
+    pool: 
+      name: 'Hosted VS2017'
+    steps: 
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace tokens in **/*.config'
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
+      inputs:
+        command: restore
+        projects: '**/*.csproj'
+    - task: VSBuild@1
+      displayName: 'Build solution **\*.sln'
+- stage: Deploy
+  jobs: 
+  - job: Deploy
+    pool: 
+      name: 'Hosted Ubuntu 1604'
+    steps:
+    - bash: 'echo "Hello This is the test pipeline "'
+      displayName: 'Bash Script'

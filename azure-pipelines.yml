@@ -4,6 +4,16 @@ stages:
   - job: Build
     pool: 
       name: 'Hosted VS2017'
+    pr: 
+      branches: 
+        include: 
+        - master
+        - develop
+    trigger: 
+      branches: 
+        include: 
+        - master
+        - develop
     steps: 
     - task: qetza.replacetokens.replacetokens-task.replacetokens@3
       displayName: 'Replace tokens in **/*.config'

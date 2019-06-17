@@ -8,6 +8,11 @@ pr:
     include: 
     - develop
     - master
+trigger: 
+  branches: 
+    include: 
+    - develop
+    - master
 steps:
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in **/*.config'

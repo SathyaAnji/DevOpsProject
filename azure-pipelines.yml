@@ -7,10 +7,6 @@ stages:
 - stage: Build
   jobs: 
   - job: Build
-    stages: 
-- stage: Build
-  jobs: 
-  - job: Build
     pool: 
       name: 'Hosted VS2017'
     steps: 

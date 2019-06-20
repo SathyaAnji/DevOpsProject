@@ -7,7 +7,10 @@
 
 Sample ASP.NET Core MVC application built using Visual Studio 2017.
 
+This is for the test again.
+
 ## License:
+Edited template.yml file and check 
 
 See [License](#)
 

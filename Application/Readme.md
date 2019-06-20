@@ -6,7 +6,7 @@
 # ASP.NET Core MVC application
 
 Sample ASP.NET Core MVC application built using Visual Studio 2017.
-
+This is to test the PR pipeline
 
 ## License:
 Edited template.yml file and check 

@@ -1,14 +1,13 @@
-pool:
-  name: Hosted VS2017
-  demands:
-  - msbuild
-  - visualstudio
 pr: 
   branches: 
     include: 
     - master
     - develop
-    - feature/test
+pool:
+  name: Hosted VS2017
+  demands:
+  - msbuild
+  - visualstudio
 steps:
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in **/*.config'

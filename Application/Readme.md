@@ -9,7 +9,7 @@ Sample ASP.NET Core MVC application built using Visual Studio 2017.
 
 ## License:
 
-  
+     
 
 See [License](#)
 

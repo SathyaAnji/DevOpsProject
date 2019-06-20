@@ -1,122 +1,27 @@
+pool:
+  name: Hosted VS2017
+  demands:
+  - msbuild
+  - visualstudio
+pr: 
+  branches: 
+    include: 
+    - develop
+    - master
 trigger: 
   branches: 
     include: 
-    - master
     - develop
-stages: 
-- stage: Build
-  jobs: 
-  - job: Build
-    pool: 
-      name: 'CAP-Ubuntu'
-    steps:
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace tokens in **/*.config'
-      inputs:
-        targetFiles: |
-         **/*.config
-         **/*.Config
-         **/Dockerfile
-    - task: Docker@1
-      displayName: 'Build an image'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'CAP Dev Registry'
-        dockerFile: AppRepositoryService/AppRepositoryService/AppRepositoryService.RestApi/Dockerfile
-        imageName: 'capregistry.azurecr.io/app-repository-service-api:$(Build.BuildId)'
-        includeLatestTag: true
-        useDefaultContext: false
-        buildContext: AppRepositoryService/AppRepositoryService
-    - bash: |
-       # Write your commands here
-       docker run --name dotnetcoreapp --rm -d $(dockerId)/app-repository-service-api:$BUILD_BUILDID
-       docker cp dotnetcoreapp:TestResults $(System.DefaultWorkingDirectory)
-       docker stop dotnetcoreapp
-      displayName: 'Bash Script'
-    - task: Docker@1
-      displayName: 'Push an image'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'CAP Dev Registry'
-        command: 'Push an image'
-        imageName: 'capregistry.azurecr.io/app-repository-service-api:$(Build.BuildId) '
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results **/*.trx'
-      inputs:
-        testResultsFormat: VSTest
-        testResultsFiles: '**/*.trx'
-    - bash: |
-       # Removing stopped containers
-       docker rm $(docker ps -a -q)
-       # Removing dangling images 
-       docker rmi -f $(docker images -q -f dangling=true)
-   
-      displayName: 'Clean docker build agent'
-    - task: PublishBuildArtifacts@1
-      displayName: 'Copy DeploymentManifests'
-      inputs:
-        PathtoPublish: AppRepositoryService/AppRepositoryService/AppRepositoryService.RestApi/DeploymentManifests
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish secret settings'
-      inputs:
-        PathtoPublish: AppRepositoryService/AppRepositoryService/AppRepositoryService.RestApi/Secrets/appsettings.Kubernetes.json
-    - task: PublishBuildArtifacts@1
-      displayName: 'Copy Functional Running Scripts'
-      inputs:
-        PathtoPublish: AppRepositoryService/AppRepositoryService/AppRepositoryService.RestApi.FunctionalTests
-- stage: Deploy
-  jobs: 
-  - job: Deploy
-    pool: 
-      name: 'CAP-UbuntuVM'
-    steps:
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace tokens in **/*.yaml'
-      inputs:
-        rootDirectory: '$(System.DefaultWorkingDirectory)/backend'
-        targetFiles: '**/*.yaml'
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace tokens in **/*.json'
-      inputs:
-        rootDirectory: '$(System.DefaultWorkingDirectory)/backend'
-        targetFiles: '**/*.json'
-    - task: Kubernetes@1
-      displayName: 'kubectl apply secret'
-      inputs:
-        kubernetesServiceEndpoint: 'Cap Development'
-        namespace: dev
-        command: get
-        arguments: 'secret app-repository-service-api-setting'
-        secretType: generic
-        secretArguments: '--from-file=$(System.DefaultWorkingDirectory)/backend/drop/appsettings.Kubernetes.json'
-        secretName: 'app-repository-service-api-setting'
-        versionSpec: 1.7.0
-    - task: Kubernetes@0
-      displayName: 'kubectl apply deployment'
-      inputs:
-        kubernetesServiceConnection: 'Cap Development'
-        namespace: dev
-        command: apply
-        useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/backend/drop/deployment.yaml'
-    - task: Kubernetes@1
-      displayName: 'kubectl apply service'
-      inputs:
-        kubernetesServiceEndpoint: 'Cap Development'
-        namespace: dev
-        command: apply
-        useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/backend/drop/service.yaml'
-        versionSpec: 1.7.0
-    - task: Kubernetes@1
-      displayName: 'kubectl apply ingress'
-      inputs:
-        kubernetesServiceEndpoint: 'Cap Development'
-        namespace: dev
-        command: apply
-        useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/backend/drop/ingress.yaml'
-        versionSpec: 1.7.0
-    - bash: '/home/capagentadmin/SmartBear/ReadyAPI-2.6.0/bin/testrunner.sh -ehttp://virtserver.swaggerhub.com -hhttps://app-repository-service.dev.cndt.cf -r -a -j -f"/home/capagentadmin/myagent/_work/r8/a/backend/drop/AppRepositoryServiceRestApi-readyapi-project" "-RJUnit-Style HTML Report" -FXML -EDevelopment "/home/capagentadmin/myagent/_work/r8/a/backend/drop/AppRepositoryService-readyapi-project"'
-      displayName: 'Run Functioanl Testing'
-      continueOnError: true
+    - master
+steps:
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens in **/*.config'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: VSBuild@1
+  displayName: 'Build solution **\*.sln'

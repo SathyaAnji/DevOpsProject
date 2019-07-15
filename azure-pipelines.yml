@@ -6,7 +6,7 @@ pool:
 steps:
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in **/*.config'
-# This is for the testing PR approvers still its not working i made few changes to check still its throughing error.
+# This is for the testing PR approvers still its not working i made few changes to check still its throughing error this is used to test the code again.
 - task: DotNetCoreCLI@2
   displayName: 'dotnet restore'
   inputs:

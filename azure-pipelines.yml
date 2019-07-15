@@ -13,6 +13,7 @@ steps:
     command: restore
     projects: '**/*.csproj'
   enabled: false
+  
 
 - task: VSBuild@1
   displayName: 'Build solution **\*.sln'

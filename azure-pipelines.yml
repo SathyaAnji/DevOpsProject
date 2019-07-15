@@ -6,14 +6,14 @@ pool:
 steps:
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in **/*.config'
-
+# This is for the testing PR approvers.
 - task: DotNetCoreCLI@2
   displayName: 'dotnet restore'
   inputs:
     command: restore
     projects: '**/*.csproj'
   enabled: false
-
+  
 - task: VSBuild@1
   displayName: 'Build solution **\*.sln'
   enabled: false

@@ -14,7 +14,6 @@ steps:
     projects: '**/*.csproj'
   enabled: false
   
-
 - task: VSBuild@1
   displayName: 'Build solution **\*.sln'
   enabled: false

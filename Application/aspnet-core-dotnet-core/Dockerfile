@@ -12,9 +12,6 @@ ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-
 # Change TimeZone TODO: TZ still is not set!
 ARG TZ="Europe/Amsterdam"
 RUN    apk update \
-	&& apk upgrade \
-	&& apk add ca-certificates \
-	&& update-ca-certificates \
 	&& apk add --update openjdk8-jre tzdata curl unzip bash \
 	&& apk add --no-cache nss \
 	&& rm -rf /var/cache/apk/* \

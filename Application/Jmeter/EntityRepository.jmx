@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="GUID" elementType="Argument">
+            <stringProp name="Argument.name">GUID</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Entity Repository" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+          <stringProp name="BeanShellSampler.query">vars.put(&quot;GUID&quot;, &quot;${__UUID}&quot;);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request_PUT" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;id&quot;: &quot;${GUID}&quot;,&#xd;
+  &quot;WorkItemOwner&quot;: &quot;16f15046-fce1-472e-83ac-306f1d0fc78c&quot;,&#xd;
+  &quot;ConfigurationId&quot;: &quot;afca02ca-5cd8-4486-8f17-2c9467f2ff21&quot;,&#xd;
+  &quot;WorkTypeId&quot;: &quot;5cd13bdb-ac01-4d32-915a-a142c34bd3d0&quot;,&#xd;
+  &quot;Documents&quot;: [&#xd;
+    {&#xd;
+      &quot;Attributes&quot;: [&#xd;
+        {&#xd;
+          &quot;Key&quot;: &quot;DocAttKey1&quot;,&#xd;
+          &quot;Value&quot;: &quot;DocAttVal1&quot;&#xd;
+        },&#xd;
+        {&#xd;
+          &quot;Key&quot;: &quot;DocAttKey2&quot;,&#xd;
+          &quot;Value&quot;: &quot;DocAttVal2&quot;&#xd;
+        }&#xd;
+      ],&#xd;
+      &quot;HeaderRecords&quot;: [&#xd;
+        {&#xd;
+          &quot;Id&quot;: &quot;88ca6358-5f1b-4a89-b161-2b753726b9f4&quot;,&#xd;
+          &quot;ConfigurationId&quot;: &quot;90e2900c-605e-4654-8808-e918cdfc6394&quot;,&#xd;
+          &quot;Fields&quot;: [&#xd;
+            {&#xd;
+              &quot;ConfigurationId&quot;: &quot;5ae38275-a684-4fb4-a857-6d305c8e8dc2&quot;,&#xd;
+              &quot;Value&quot;: &quot;HdrFldVal1&quot;,&#xd;
+              &quot;Attributes&quot;: [&#xd;
+                {&#xd;
+                  &quot;Key&quot;: &quot;HdrAttKey1&quot;,&#xd;
+                  &quot;Value&quot;: &quot;HdrAttVal1&quot;&#xd;
+                }&#xd;
+              ]&#xd;
+            },&#xd;
+            {&#xd;
+              &quot;ConfigurationId&quot;: &quot;5ae38275-a684-4fb4-a857-6d305c8e8dc2&quot;,&#xd;
+              &quot;Value&quot;: &quot;HdrFldVal2&quot;,&#xd;
+              &quot;Attributes&quot;: []&#xd;
+            }&#xd;
+          ],&#xd;
+          &quot;DetailsRecords&quot;: [&#xd;
+            {&#xd;
+              &quot;Id&quot;: &quot;1f004863-dd79-4449-9960-6087a13d1f0e&quot;,&#xd;
+              &quot;ConfigurationId&quot;: &quot;52f73d0b-a441-4819-a696-405a11edb581&quot;,&#xd;
+              &quot;Rows&quot;: [&#xd;
+                {&#xd;
+                  &quot;Index&quot;: 1,&#xd;
+                  &quot;Fields&quot;: [&#xd;
+                    {&#xd;
+                      &quot;ConfigurationId&quot;: &quot;95b1dd0d-11ae-4b2c-b328-fb63f23bd608&quot;,&#xd;
+                      &quot;Value&quot;: &quot;DtlFldVal1&quot;,&#xd;
+                      &quot;Attributes&quot;: [&#xd;
+                        {&#xd;
+                          &quot;Key&quot;: &quot;DtlAttKey1&quot;,&#xd;
+                          &quot;Value&quot;: &quot;DtlAttVal1&quot;&#xd;
+                        }&#xd;
+                      ]&#xd;
+                    },&#xd;
+                    {&#xd;
+                      &quot;ConfigurationId&quot;: &quot;02a141fe-4974-4131-8623-eb70e3d88485&quot;,&#xd;
+                      &quot;Value&quot;: &quot;DtlFldVal2&quot;,&#xd;
+                      &quot;Attributes&quot;: [&#xd;
+                        {&#xd;
+                          &quot;Key&quot;: &quot;DtlAttKey2&quot;,&#xd;
+                          &quot;Value&quot;: &quot;DtlAttVal2&quot;&#xd;
+                        }&#xd;
+                      ]&#xd;
+                    }&#xd;
+                  ]&#xd;
+                }&#xd;
+              ]&#xd;
+            }&#xd;
+          ]&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">entities-repository-service.dev.cndt.cf</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/EntitiesRepository</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request_GET" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">entities-repository-service.dev.cndt.cf</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/EntitiesRepository/${GUID}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

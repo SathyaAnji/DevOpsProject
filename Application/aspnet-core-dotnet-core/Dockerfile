@@ -3,11 +3,10 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY . .
-COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj" "aspnet-core-dotnet-core"/]
+COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "aspnet-core-dotnet-core"/]
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
 RUN dotnet build "aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj"
 RUN dotnet publish -c Release -o out
 

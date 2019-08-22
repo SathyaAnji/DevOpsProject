@@ -46,7 +46,7 @@ COPY ["Jmeter/EntityRepository.jmx", "Jmeter/"]
 #RUN jmeter -n -t "Jmeter/EntityRepository.jmx" -l "trx;LogFileName=testresults.trx" -e -o Release
 
 COPY . .
-COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "aspnet-core-dotnet-core"/]
+COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "aspnet-core-dotnet-core/"]
 RUN dotnet restore
 FROM build AS publish
 RUN jmeter -n -t "Jmeter/EntityRepository.jmx" -l results.csv -e -o /test

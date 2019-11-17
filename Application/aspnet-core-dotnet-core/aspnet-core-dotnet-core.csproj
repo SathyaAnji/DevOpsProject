@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <ProjectGuid>{5FD61E70-C3B0-46A4-A06F-2782299238AF}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

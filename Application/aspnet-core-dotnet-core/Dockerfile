@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y openjdk-8-jre
 ENV PATH="$PATH:/root/.dotnet/tools"
 
 FROM pre-build AS build
-RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login="162b148423820365caf26f5f8852f86f569d8c92"
+RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login="91d07de11d59a84cd8439d5c45758bbdfd27b873"
 
 # Copy csproj and restore as distinct layers
 COPY . /app
@@ -19,7 +19,7 @@ RUN dotnet restore "/app/aspnet-core-dotnet-core.csproj"
 
 # Copy everything else and build
 RUN dotnet build "app/aspnet-core-dotnet-core.csproj"
-RUN dotnet sonarscanner end /d:sonar.login="162b148423820365caf26f5f8852f86f569d8c92"
+RUN dotnet sonarscanner end /d:sonar.login="91d07de11d59a84cd8439d5c45758bbdfd27b873"
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

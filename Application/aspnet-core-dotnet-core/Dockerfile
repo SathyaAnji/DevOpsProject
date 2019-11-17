@@ -13,7 +13,7 @@ RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="https://son
 
 # Copy csproj and restore as distinct layers
 COPY . .
-COPY ["aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "aspnet-core-dotnet-core/"]
+COPY ["Application/aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "Application/aspnet-core-dotnet-core/"]
 RUN dotnet restore
 
 # Copy everything else and build

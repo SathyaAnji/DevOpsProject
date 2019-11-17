@@ -18,7 +18,7 @@ COPY . /app
 RUN dotnet restore "/app/aspnet-core-dotnet-core.csproj"
 
 # Copy everything else and build
-RUN dotnet build "app/aspnet-core-dotnet-core.csproj"
+RUN dotnet build "app/aspnet-core-dotnet-core.sln"
 RUN dotnet sonarscanner end /d:sonar.login="{sonarlogin}"
 RUN dotnet publish -c Release -o out
 

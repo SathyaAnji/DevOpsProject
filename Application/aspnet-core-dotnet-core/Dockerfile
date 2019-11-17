@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y openjdk-8-jre
 ENV PATH="$PATH:/root/.dotnet/tools"
 
 FROM pre-build AS build
-RUN dotnet sonarscanner begin /k:"SathyaAnji" /d:sonar.host.url="(sonaruri)" /d:sonar.login="91d07de11d59a84cd8439d5c45758bbdfd27b873"
+RUN dotnet sonarscanner begin /k:"SathyaAnji" /d:sonar.host.url="sonaruri" /d:sonar.login="91d07de11d59a84cd8439d5c45758bbdfd27b873"
 
 # Copy csproj and restore as distinct layers
 COPY . /app

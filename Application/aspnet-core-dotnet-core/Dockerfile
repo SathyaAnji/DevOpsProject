@@ -8,6 +8,7 @@ RUN dotnet tool install --global coverlet.console
 RUN apt-get update && apt-get install -y openjdk-8-jre
 ENV PATH="$PATH:/root/.dotnet/tools"
 
+FROM pre-build AS build
 RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="#{sonaruri}#" /d:sonar.login="#{sonarlogin}#"
 
 # Copy csproj and restore as distinct layers
@@ -23,5 +24,5 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM microsoft/aspnetcore:1.1
 WORKDIR /app
-COPY --from=sathya /app/out .
+COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "aspnet-core-dotnet-core.dll"]

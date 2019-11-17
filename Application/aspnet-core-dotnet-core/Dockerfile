@@ -12,7 +12,8 @@ FROM pre-build AS build
 RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login="162b148423820365caf26f5f8852f86f569d8c92"
 
 # Copy csproj and restore as distinct layers
-COPY . .
+COPY . /app
+RUN ls -al /app
 COPY ["Application/aspnet-core-dotnet-core/aspnet-core-dotnet-core.csproj", "Application/aspnet-core-dotnet-core/"]
 RUN dotnet restore
 

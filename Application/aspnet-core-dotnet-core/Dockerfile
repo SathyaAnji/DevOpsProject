@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y openjdk-8-jre
 ENV PATH="$PATH:/root/.dotnet/tools"
 
 FROM pre-build AS build
-RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="#{sonaruri}#" /d:sonar.login="#{sonarlogin}#"
+RUN dotnet sonarscanner begin /k:"BarcodesReader" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login="162b148423820365caf26f5f8852f86f569d8c92"
 
 # Copy csproj and restore as distinct layers
 COPY . .
